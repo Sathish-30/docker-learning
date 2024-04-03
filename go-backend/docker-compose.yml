@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  my-app:
+    build: .
+    depends_on:
+      - "postgres"
+    ports:
+      - 8088:8000
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: pass
+      DB_NAME: sample
+      DB_PORT: 5432
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - pqdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: sample
+volumes:
+  pqdata:
